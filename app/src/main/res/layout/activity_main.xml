@@ -6,18 +6,67 @@
   android:layout_height="match_parent"
   tools:context=".MainActivity">
 
+  <Button
+    android:id="@+id/next_btn"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginEnd="24dp"
+    android:layout_marginTop="28dp"
+    android:text="next"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
   <androidx.appcompat.widget.Toolbar
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:layout_constraintEnd_toEndOf="parent"
+    android:background="@color/colorPrimary"
     app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
+    app:layout_constraintHorizontal_bias="1.0"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+      android:id="@+id/tool_parent"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+
+      <TextView
+        android:id="@+id/prev"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:text="Prev"
+        android:textColor="#000"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@id/tool_parent"
+        app:layout_constraintLeft_toLeftOf="@+id/tool_parent"
+        app:layout_constraintTop_toBottomOf="@+id/tool_parent"
+        tools:layout_editor_absoluteX="10dp" />
+
+      <TextView
+        android:id="@+id/next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="36dp"
+        android:clickable="true"
+        android:text="Next"
+        android:textColor="#000"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tool_parent"
+        app:layout_constraintRight_toRightOf="@+id/tool_parent"
+        app:layout_constraintTop_toBottomOf="@+id/tool_parent"
+        tools:layout_editor_absoluteY="-1dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+  </androidx.appcompat.widget.Toolbar>
 
   <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/recycler_view"
-    android:layout_width="0dp"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintLeft_toLeftOf="parent"
     app:layout_constraintRight_toRightOf="parent"
