@@ -5,17 +5,17 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.LinearLayoutManager
-import kotlinx.android.synthetic.main.activity_main.next_btn
 import kotlinx.android.synthetic.main.activity_main.recycler_view
 import kotlinx.android.synthetic.main.activity_main.toolbar
 import kotlinx.android.synthetic.main.activity_main.view.next
+import kotlinx.android.synthetic.main.activity_main.view.prev
 
 class MainActivity : AppCompatActivity() {
 
   private lateinit var toolBar: Toolbar
   private lateinit var adpater: MyAdapter
   private val myList: List<Int> =
-    arrayListOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17)
+    arrayListOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 15, 17, 18, 19, 20)
   private var perPage = 5
   private var count = 5
   private val newList = mutableListOf<Int>()
@@ -28,9 +28,7 @@ class MainActivity : AppCompatActivity() {
     toolBar = toolbar
     setSupportActionBar(toolBar)
 
-    toolBar.next.setOnClickListener {
-      Toast.makeText(this, "hello", Toast.LENGTH_LONG)
-    }
+
 
 
     recycler_view.layoutManager = LinearLayoutManager(this)
@@ -38,26 +36,18 @@ class MainActivity : AppCompatActivity() {
     recycler_view.adapter = adpater
     addFirstPage()
 
-    next_btn.setOnClickListener {
-      newList.clear()
-      for (item in count..count + 4) {
-        if (count + 1 <= myList.size) {
-          newList.add(myList[item])
-          if (newList.size == 5) {
-            adpater.update(newList)
-            if (myList.size % perPage == 0) {
-              count += 5
-            } else {
-              for (j in (myList.size - (myList.size % perPage))..myList.size) {
-                newList.add(myList[item])
-                adpater.update(newList)
-              }
-            }
-          }
-        }
-      }
+    toolBar.next.setOnClickListener {
+      Toast.makeText(this, "hello", Toast.LENGTH_LONG)
+      nextPage()
     }
+
+    toolBar.prev.setOnClickListener {
+      Toast.makeText(this, "hello", Toast.LENGTH_LONG)
+      prevPage()
+    }
+
   }
+
 
   private fun addFirstPage() {
     for (i in 0..4) {
@@ -67,6 +57,52 @@ class MainActivity : AppCompatActivity() {
 
   }
 
+  private fun nextPage() {
+    newList.clear()
+
+    if (myList.size % perPage == 0) {
+      for (item in count..count + 4) {
+
+        if (count + 1 <= myList.size) {
+          newList.add(myList[item])
+          if (newList.size == 5) {
+            adpater.update(newList)
+            count += 5
+          }
+        }
+      }
+    } else {
+      if (count == (myList.size - (myList.size % perPage))) {
+        for (j in (myList.size - (myList.size % perPage))..(myList.size - 1)) {
+          newList.add(myList[j])
+          adpater.update(newList)
+        }
+      } else {
+        for (item in count..count + 4) {
+          if (count + 1 <= myList.size) {
+            newList.add(myList[item])
+            if (newList.size == 5) {
+              adpater.update(newList)
+              count += 5
+            }
+          }
+        }
+      }
+    }
+  }
+
+  private fun prevPage() {
+    newList.clear()
+    for (item in count - 10..count - 5) {
+      if (count - 5 > 0) {
+        newList.add(myList[item])
+        if (newList.size == 5) {
+          adpater.update(newList)
+          count -= 5
+        }
+      }
+    }
+  }
 
 }
 
